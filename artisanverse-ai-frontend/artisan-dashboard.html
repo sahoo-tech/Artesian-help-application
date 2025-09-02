@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-icon">🎨</span>
+                    <h2 class="logo-text">Artisan Studio</h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="artisan-home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="artisan-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="manage-products.html"><i class="fas fa-box"></i> Manage Products</a></li>
+                    <li><a href="manage-orders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+                    <li><a href="upload-product.html"><i class="fas fa-upload"></i> Upload Product</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-main">
+            <div class="dashboard-header">
+                <h1>Artisan Dashboard</h1>
+                <p>Welcome, Artisan! Here you can manage your products and workshops.</p>
+            </div>
+            <div class="analytics-grid">
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Total Sales</h3>
+                        <p class="analytics-card__value">$12,345.67</p>
+                        <p class="analytics-card__change analytics-card__change--positive">+10.2% from last month</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Total Orders</h3>
+                        <p class="analytics-card__value">432</p>
+                        <p class="analytics-card__change analytics-card__change--positive">+8.5% from last month</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Your Products</h3>
+                        <p class="analytics-card__value">23</p>
+                        <p class="analytics-card__change">3 pending approval</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Customer Reviews</h3>
+                        <p class="analytics-card__value">4.8/5</p>
+                        <p class="analytics-card__change">from 123 reviews</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card chart-card">
+                <div class="card__header">
+                    <h3>Your Sales Over Time</h3>
+                </div>
+                <div class="card__body">
+                    <canvas id="artisanSalesChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__header">
+                    <h3>Your Products</h3>
+                </div>
+                <div class="card__body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Handcrafted Vase</td>
+                                <td>$45.00</td>
+                                <td>12</td>
+                                <td><span class="status status--success">Active</span></td>
+                                <td>
+                                    <button class="btn btn--sm btn--outline">Edit</button>
+                                    <button class="btn btn--sm btn--danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Woven Wall Hanging</td>
+                                <td>$75.00</td>
+                                <td>5</td>
+                                <td><span class="status status--success">Active</span></td>
+                                <td>
+                                    <button class="btn btn--sm btn--outline">Edit</button>
+                                    <button class="btn btn--sm btn--danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ceramic Mug Set</td>
+                                <td>$35.00</td>
+                                <td>25</td>
+                                <td><span class="status status--warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn--sm btn--outline">Edit</button>
+                                    <button class="btn btn--sm btn--danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const ctx = document.getElementById('artisanSalesChart').getContext('2d');
+        const artisanSalesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'Your Sales',
+                    data: [1200, 1900, 300, 500, 200, 300, 700],
+                    backgroundColor: 'rgba(212, 165, 116, 0.5)',
+                    borderColor: 'rgba(212, 165, 116, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

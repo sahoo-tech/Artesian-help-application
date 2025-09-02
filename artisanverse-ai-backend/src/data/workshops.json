@@ -1,0 +1,26 @@
+[
+    {
+        "id": "workshop_001",
+        "title": "Traditional Block Printing Masterclass",
+        "instructor": "Meera Devi Sharma",
+        "instructorId": "artisan_001",
+        "price": 89,
+        "duration": "3 hours",
+        "date": "2025-09-15",
+        "maxParticipants": 15,
+        "currentParticipants": 8,
+        "description": "Learn authentic Rajasthani block printing techniques from a 5th generation master artisan."
+    },
+    {
+        "id": "workshop_002",
+        "title": "Kente Weaving: Royal Patterns Workshop",
+        "instructor": "Kwame Asante",
+        "instructorId": "artisan_002",
+        "price": 125,
+        "duration": "4 hours",
+        "date": "2025-09-22",
+        "maxParticipants": 12,
+        "currentParticipants": 5,
+        "description": "Master the art of Kente weaving and learn the meanings behind Adinkra symbols."
+    }
+]

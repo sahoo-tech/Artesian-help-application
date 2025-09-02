@@ -1,0 +1,126 @@
+[
+  {
+    "id": "user_buyer_001",
+    "email": "sarah@example.com",
+    "password": "$2a$10$rOzJqW6tLGXYGDnlNwPr..PgHgXvxgNZ8J8hQiUzQgHi",
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "role": "buyer",
+    "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b5b4?w=150&h=150&fit=crop&crop=face",
+    "location": "San Francisco, CA",
+    "interests": [
+      "textiles",
+      "jewelry",
+      "home decor"
+    ],
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-27T05:30:53.401Z",
+    "culturalPassport": {
+      "points": 245,
+      "regionsExplored": [
+        "South Asia",
+        "West Africa"
+      ],
+      "achievements": [
+        "Cultural Explorer",
+        "Textile Enthusiast"
+      ]
+    }
+  },
+  {
+    "id": "user_artisan_001",
+    "email": "meera@example.com",
+    "password": "$2a$10$rOzJqW6tLGXYGDnlNwPr..PgHgXvxgNZ8J8hQiUzQgHi",
+    "firstName": "Meera",
+    "lastName": "Sharma",
+    "role": "artisan",
+    "avatar": "https://images.unsplash.com/photo-1594736797933-d0c4e9e6bf43?w=150&h=150&fit=crop&crop=face",
+    "location": "Jaipur, India",
+    "craftType": "Block Printing",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-27T05:30:53.401Z",
+    "artisanProfile": {
+      "heritage": "5th generation block printer preserving 300-year-old family techniques",
+      "experience": 15,
+      "specialties": [
+        "Natural Dyes",
+        "Bagru Printing",
+        "Traditional Motifs"
+      ],
+      "rating": 4.9,
+      "totalOrders": 347
+    }
+  },
+  {
+    "id": "user_admin_001",
+    "email": "admin@example.com",
+    "password": "$2a$10$rOzJqW6tLGXYGDnlNwPr..PgHgXvxgNZ8J8hQiUzQgHi",
+    "firstName": "Admin",
+    "lastName": "User",
+    "role": "admin",
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-27T05:30:53.401Z"
+  },
+  {
+    "firstName": "Sayantan",
+    "lastName": "Sahoo",
+    "email": "sayantansahoo02@gmail.com",
+    "password": "$2a$10$NYlpT87qjIGl9Txel4XOr.7aIJt8yypjftdQ7hsYN9KeQ3syulJsO",
+    "role": "artisan",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-28T04:29:27.072Z",
+    "id": "60f8009e-4768-4f51-8f4b-3a269a068cd5",
+    "updatedAt": "2025-09-01T11:46:13.238Z",
+    "lastLoginAt": "2025-09-01T11:46:13.237Z"
+  },
+  {
+    "firstName": "Sayantan",
+    "lastName": "Sahoo",
+    "email": "ssunique2025@gmail.com",
+    "password": "$2a$10$b00lLl7FHDrgEouUL0kozOmZNJyv5sa/BpiguvIOKdzvxZHgkU41m",
+    "role": "buyer",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-28T06:37:22.202Z",
+    "culturalPassport": {
+      "points": 0,
+      "regionsExplored": [],
+      "achievements": [
+        "New Member"
+      ]
+    },
+    "interests": [],
+    "id": "453149eb-1dbe-4d89-9ede-76908700ce4f",
+    "updatedAt": "2025-09-01T11:44:25.901Z",
+    "lastLoginAt": "2025-09-01T11:44:25.900Z"
+  },
+  {
+    "firstName": "Subham",
+    "lastName": "Roy",
+    "email": "sayantansahoo11@gmail.com",
+    "password": "$2a$10$sim.7GT63u0fZglZqh.FbeYTwToBZrcY9pPu0.ED/IbhG1avi.bce",
+    "role": "admin",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-08-28T07:03:58.110Z",
+    "id": "d0ebff8f-9d21-4e1c-ad84-635f77531528",
+    "updatedAt": "2025-08-28T07:03:58.110Z"
+  },
+  {
+    "firstName": "Sayantan",
+    "lastName": "Sahoo",
+    "email": "copybeast2006@gmail.com",
+    "password": "$2a$10$z8UmA7E.dQijypGiLCM2teGmpjhfkNHNo6dXo3ly5yE0GQ2lvMR/u",
+    "role": "admin",
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2025-09-01T07:20:38.387Z",
+    "id": "7a562c04-78d9-423d-bfaa-8855eba22e6d",
+    "updatedAt": "2025-09-01T07:20:38.387Z"
+  }
+]

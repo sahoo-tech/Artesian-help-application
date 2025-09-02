@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-icon">🏛️</span>
+                    <h2 class="logo-text">ArtisanVerse</h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="admin-home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="manage-users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                    <li><a href="manage-products.html"><i class="fas fa-box"></i> Manage Products</a></li>
+                    <li><a href="manage-orders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+                    <li><a href="admin-analytics.html"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-main">
+            <div class="dashboard-welcome">
+                <h1>Admin Home</h1>
+                <p>Welcome, Admin! Here you can manage the platform.</p>
+            </div>
+            <div class="admin-sections">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Manage Users</h2>
+                        <p>View, edit, and delete users.</p>
+                        <a href="manage-users.html" class="btn btn--primary">Go to Manage Users</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Manage Products</h2>
+                        <p>View, edit, and delete products.</p>
+                        <a href="manage-products.html" class="btn btn--primary">Go to Manage Products</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Manage Orders</h2>
+                        <p>View and process orders.</p>
+                        <a href="manage-orders.html" class="btn btn--primary">Go to Manage Orders</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

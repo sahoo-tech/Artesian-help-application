@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtisanVerse - AI-Powered Cultural Heritage Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <meta name="theme-color" content="#D4A574">
+    <meta name="description" content="Discover authentic cultural heritage crafts powered by AI. Connect with master artisans worldwide.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+    <link rel="manifest" href="data:application/json,{"name":"ArtisanVerse","short_name":"ArtisanVerse","start_url":"/","display":"standalone","theme_color":"#D4A574"}">
+</head>
+<body>
+    <!-- Cultural Pattern Animations -->
+    <div class="cultural-animations">
+        <div class="floating-pattern pattern-1"></div>
+        <div class="floating-pattern pattern-2"></div>
+        <div class="floating-pattern pattern-3"></div>
+        <div class="floating-pattern pattern-4"></div>
+    </div>
+
+    <!-- Language Selector -->
+    <div id="languageSelector" class="language-selector hidden">
+        <select id="languageSelect" class="form-control">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="zh">中文</option>
+        </select>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-container">
+                <h2 id="authTitle">Welcome to ArtisanVerse</h2>
+                <p class="auth-subtitle">Your gateway to authentic cultural heritage</p>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Sign In to Your Heritage</button>
+                    <div class="auth-divider">
+                        <span>or continue with</span>
+                    </div>
+                    <div class="social-auth">
+                        <button type="button" class="btn btn--outline social-btn" onclick="app.socialLogin('google')">
+                            🔍 Google
+                        </button>
+                        <button type="button" class="btn btn--outline social-btn" onclick="app.socialLogin('facebook')">
+                            📘 Facebook
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form hidden">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="registerName" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="Your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Create a secure password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">I am a</label>
+                        <select class="form-control" id="registerRole" required>
+                            <option value="">Select your journey</option>
+                            <option value="buyer">Cultural Explorer - Discover authentic treasures</option>
+                            <option value="artisan">Master Artisan - Share your heritage</option>
+                            <option value="admin">Platform Guardian - Manage the marketplace</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cultural Interest</label>
+                        <select class="form-control" id="culturalInterest">
+                            <option value="all">All cultures fascinate me</option>
+                            <option value="south-asia">South Asian Heritage</option>
+                            <option value="west-africa">West African Traditions</option>
+                            <option value="latin-america">Latin American Crafts</option>
+                            <option value="middle-east">Middle Eastern Arts</option>
+                            <option value="east-asia">East Asian Culture</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Begin Your Cultural Journey</button>
+                </form>
+                
+                <div class="auth-toggle">
+                    <p id="authToggleText">Don't have an account? <a href="#" id="toggleAuth">Join our cultural community</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AR Try-On Modal -->
+    <div id="arModal" class="modal ar-modal hidden">
+        <div class="modal-content ar-modal-content">
+            <span class="close">&times;</span>
+            <div class="ar-container">
+                <div class="ar-header">
+                    <h2>Virtual Try-On Experience</h2>
+                    <p>See how this cultural piece looks in your space</p>
+                </div>
+                
+                <div class="ar-viewer">
+                    <div class="ar-camera" id="arCamera">
+                        <div class="ar-placeholder">
+                            <div class="ar-icon">📱</div>
+                            <p>AR Camera View</p>
+                            <p class="ar-instruction">Point your device to try on this piece</p>
+                        </div>
+                        <div class="ar-overlay">
+                            <div class="ar-product" id="arProduct"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="ar-controls">
+                        <button class="btn btn--outline" id="arRotateBtn">🔄 Rotate</button>
+                        <button class="btn btn--outline" id="arScaleBtn">📏 Resize</button>
+                        <button class="btn btn--primary" id="arCaptureBtn">📸 Capture</button>
+                    </div>
+                </div>
+                
+                <div class="ar-info">
+                    <h3 id="arProductTitle">Product Name</h3>
+                    <p id="arProductDescription">Product description and cultural significance</p>
+                    <div class="ar-actions">
+                        <button class="btn btn--primary" id="arAddToCartBtn">Add to Cart</button>
+                        <button class="btn btn--outline" id="arShareBtn">Share Try-On</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authenticity Certificate Modal -->
+    <div id="certificateModal" class="modal certificate-modal hidden">
+        <div class="modal-content certificate-content">
+            <span class="close">&times;</span>
+            <div class="certificate-container">
+                <div class="certificate-header">
+                    <div class="certificate-logo">🏛️</div>
+                    <h2>Digital Authenticity Certificate</h2>
+                    <p>Blockchain-verified cultural heritage piece</p>
+                </div>
+                
+                <div class="certificate-body">
+                    <div class="certificate-info">
+                        <div class="cert-field">
+                            <label>Certificate ID</label>
+                            <span id="certId">AV-AUTH-001-2025</span>
+                        </div>
+                        <div class="cert-field">
+                            <label>Product</label>
+                            <span id="certProduct">Royal Peacock Block Print Saree</span>
+                        </div>
+                        <div class="cert-field">
+                            <label>Artisan</label>
+                            <span id="certArtisan">Meera Devi Sharma</span>
+                        </div>
+                        <div class="cert-field">
+                            <label>Heritage Origin</label>
+                            <span id="certOrigin">Jaipur, Rajasthan, India</span>
+                        </div>
+                        <div class="cert-field">
+                            <label>Blockchain Hash</label>
+                            <span id="certHash" class="hash-text">0x1a2b3c4d5e6f7890abcdef1234567890</span>
+                        </div>
+                        <div class="cert-field">
+                            <label>Issue Date</label>
+                            <span id="certDate">August 26, 2025</span>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-qr">
+                        <div class="qr-code">
+                            <div class="qr-pattern">📱</div>
+                            <p>Scan to verify on blockchain</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certificate-footer">
+                    <button class="btn btn--outline" id="downloadCertBtn">📄 Download PDF</button>
+                    <button class="btn btn--primary" id="verifyCertBtn">🔍 Verify on Blockchain</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1 class="logo-text">ArtisanVerse</h1>
+                    <span class="logo-subtitle">AI-Powered Cultural Heritage Marketplace</span>
+                </div>
+                
+                <!-- AI-Powered Search -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Ask AI to find cultural treasures..." id="aiSearch">
+                    <button class="search-btn" id="aiSearchBtn">🤖</button>
+                </div>
+                
+                <nav class="nav" id="mainNav">
+                    <a href="#home" class="nav-link active" data-page="home">
+                        <span class="nav-icon">🏠</span>
+                        <span>Home</span>
+                    </a>
+                    <a href="#products" class="nav-link" data-page="products">
+                        <span class="nav-icon">🎨</span>
+                        <span>Treasures</span>
+                    </a>
+                    <a href="#workshops" class="nav-link" data-page="workshops">
+                        <span class="nav-icon">🛠️</span>
+                        <span>Workshops</span>
+                    </a>
+                    <a href="#community" class="nav-link" data-page="community">
+                        <span class="nav-icon">👥</span>
+                        <span>Community</span>
+                    </a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="btn btn--outline" id="languageBtn">🌍</button>
+                    <button class="btn btn--outline" id="loginBtn">Sign In</button>
+                    <button class="btn btn--primary" id="registerBtn">Join Heritage</button>
+                </div>
+                
+                <!-- User Profile (shown when authenticated) -->
+                <div class="user-profile hidden" id="userProfile">
+                    <div class="profile-avatar">
+                        <img id="userAvatar" src="" alt="Profile">
+                        <div class="profile-status online"></div>
+                    </div>
+                    <div class="profile-info">
+                        <span id="userName"></span>
+                        <small id="userRole"></small>
+                    </div>
+                    <div class="profile-dropdown">
+                        <button class="btn btn--secondary profile-menu-btn" id="profileMenuBtn">⚙️</button>
+                        <div class="profile-menu hidden" id="profileMenu">
+                            <a href="#" onclick="app.showProfile()">👤 My Profile</a>
+                            <a href="#" onclick="app.showSettings()">⚙️ Settings</a>
+                            <a href="#" onclick="app.showOrders()">📦 My Orders</a>
+                            <hr>
+                            <a href="#" id="logoutBtn">🚪 Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Landing Page -->
+        <main id="homePage" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span>✨ AI-Powered Cultural Discovery</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Discover Authentic
+                        <span class="gradient-text">Cultural Heritage</span>
+                        Through AI
+                    </h1>
+                    <p class="hero-subtitle">
+                        Connect with master artisans worldwide, experience their stories through AI-powered narratives, 
+                        and bring home pieces of living heritage with blockchain-verified authenticity.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn--primary btn--lg" id="heroExplore">
+                            <span>🎨</span> Explore Cultural Treasures
+                        </button>
+                        <button class="btn btn--outline btn--lg" id="heroAI">
+                            <span>🤖</span> Meet Your AI Cultural Guide
+                        </button>
+                    </div>
+                    
+                    <!-- Cultural Stats -->
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <strong>250+</strong>
+                            <span>Traditional Crafts</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>87</strong>
+                            <span>Countries</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>15K+</strong>
+                            <span>Artisan Stories</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Visual -->
+                <div class="hero-visual">
+                    <div class="cultural-showcase">
+                        <div class="showcase-item item-1">🏺</div>
+                        <div class="showcase-item item-2">🎭</div>
+                        <div class="showcase-item item-3">🧵</div>
+                        <div class="showcase-item item-4">💎</div>
+                    </div>
+                </div>
+                
+                <!-- Scroll Indicator -->
+                <div class="scroll-indicator">
+                    <div class="scroll-dot"></div>
+                    <p>Scroll to discover</p>
+                </div>
+            </section>
+
+            <!-- AI Features Section -->
+            <section class="ai-features">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">AI-Powered Cultural Experience</h2>
+                        <p class="section-subtitle">Technology meets tradition in perfect harmony</p>
+                    </div>
+                    
+                    <div class="ai-grid">
+                        <div class="ai-card">
+                            <div class="ai-icon">🤖</div>
+                            <h3>Craft Twin Storytelling</h3>
+                            <p>Each artisan has an AI-generated digital twin that narrates their heritage story in their own voice</p>
+                            <div class="ai-demo" onclick="app.demoCraftTwin()">
+                                <button class="demo-btn">Try Demo</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-card">
+                            <div class="ai-icon">📱</div>
+                            <h3>AR Cultural Try-On</h3>
+                            <p>Visualize how traditional crafts look in your space or on you with advanced AR technology</p>
+                            <div class="ai-demo" onclick="app.demoAR()">
+                                <button class="demo-btn">Launch AR</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-card">
+                            <div class="ai-icon">🔗</div>
+                            <h3>Blockchain Authenticity</h3>
+                            <p>Every purchase comes with a blockchain certificate ensuring authenticity and supporting artisan royalties</p>
+                            <div class="ai-demo" onclick="app.demoBlockchain()">
+                                <button class="demo-btn">View Certificate</button>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-card">
+                            <div class="ai-icon">🧠</div>
+                            <h3>AI Business Mentor</h3>
+                            <p>Artisans get personalized AI guidance on pricing, marketing, and growing their cultural business</p>
+                            <div class="ai-demo" onclick="app.demoMentor()">
+                                <button class="demo-btn">Meet Mentor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cultural Stories Section -->
+            <section class="cultural-stories">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Immersive Cultural Stories</h2>
+                        <p class="section-subtitle">Journey through living heritage narratives</p>
+                    </div>
+                    
+                    <div class="stories-carousel">
+                        <div class="story-card featured" onclick="app.openStory('block-printing')">
+                            <div class="story-image">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Block Printing" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23D4A574%22/><text x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22>🎨</text></svg>'">
+                                <div class="story-overlay">
+                                    <div class="story-badge">🇮🇳 Rajasthan</div>
+                                    <div class="story-duration">5 min read</div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3>The Sacred Art of Block Printing</h3>
+                                <p>Discover how 5th-generation artisan Meera Sharma preserves 300-year-old royal printing techniques...</p>
+                                <div class="story-meta">
+                                    <span class="story-category">Traditional Crafts</span>
+                                    <span class="story-views">12.3K views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card" onclick="app.openStory('kente-weaving')">
+                            <div class="story-image">
+                                <img src="https://images.unsplash.com/photo-1611095564515-1d4c4b4e7b0c?w=400&h=300&fit=crop" alt="Kente Weaving" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23D4A574%22/><text x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22>🧵</text></svg>'">
+                                <div class="story-overlay">
+                                    <div class="story-badge">🇬🇭 Ghana</div>
+                                    <div class="story-duration">7 min read</div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3>Kente: The Cloth of Kings</h3>
+                                <p>Master weaver Kwame Asante shares the royal traditions of Ashanti kingdom weaving...</p>
+                                <div class="story-meta">
+                                    <span class="story-category">Royal Heritage</span>
+                                    <span class="story-views">8.7K views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card" onclick="app.openStory('pottery-fusion')">
+                            <div class="story-image">
+                                <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop" alt="Pottery" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23D4A574%22/><text x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22>🏺</text></svg>'">
+                                <div class="story-overlay">
+                                    <div class="story-badge">🇲🇽 Mexico</div>
+                                    <div class="story-duration">6 min read</div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3>Zapotec Clay Wisdom</h3>
+                                <p>Maria Esperanza bridges indigenous Zapotec traditions with Spanish colonial techniques...</p>
+                                <div class="story-meta">
+                                    <span class="story-category">Cultural Fusion</span>
+                                    <span class="story-views">9.2K views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Metrics -->
+            <section class="impact-metrics">
+                <div class="container">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon">💰</div>
+                            <div class="metric-value">300%</div>
+                            <div class="metric-label">Average Income Increase for Artisans</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🌱</div>
+                            <div class="metric-value">95%</div>
+                            <div class="metric-label">Reduction in Carbon Footprint</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🎓</div>
+                            <div class="metric-value">50K+</div>
+                            <div class="metric-label">Cultural Learning Sessions Completed</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🔗</div>
+                            <div class="metric-value">100K+</div>
+                            <div class="metric-label">Blockchain Certificates Issued</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <div class="container">
+                    <div class="cta-content">
+                        <h2>Ready to Begin Your Cultural Journey?</h2>
+                        <p>Join thousands of culture enthusiasts and master artisans in preserving and celebrating world heritage.</p>
+                        <div class="cta-actions">
+                            <button class="btn btn--primary btn--lg" id="ctaJoin">Start Your Journey</button>
+                            <button class="btn btn--outline btn--lg" id="ctaLearn">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Dashboard (Role-specific) -->
+        <main id="dashboardPage" class="page hidden">
+            <div class="dashboard-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <div class="sidebar-logo">
+                            <span class="logo-icon">🎨</span>
+                            <span class="logo-text">ArtisanVerse</span>
+                        </div>
+                        <div class="sidebar-user">
+                            <img id="sidebarAvatar" src="" alt="User">
+                            <div class="user-info">
+                                <span id="sidebarName">User Name</span>
+                                <small id="sidebarRole">Role</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav class="sidebar-nav" id="sidebarNav">
+                        <!-- Navigation will be populated based on user role -->
+                    </nav>
+                    
+                    <div class="sidebar-footer">
+                        <div class="ai-assistant-mini">
+                            <div class="assistant-avatar">🤖</div>
+                            <div class="assistant-info">
+                                <span>AI Assistant</span>
+                                <small>Ready to help</small>
+                            </div>
+                            <button class="assistant-toggle" onclick="app.toggleAIAssistant()">💬</button>
+                        </div>
+                    </div>
+                </aside>
+                
+                <div class="dashboard-content">
+                    <!-- Buyer Dashboard Sections -->
+                    <section id="buyerDashboard" class="dashboard-section hidden">
+                        <div class="dashboard-welcome">
+                            <h1>Welcome back, <span id="dashboardUserName"></span></h1>
+                            <p>Continue your cultural discovery journey</p>
+                        </div>
+                        
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">📚</div>
+                                <div class="stat-info">
+                                    <h3 id="buyerCulturalPoints">245</h3>
+                                    <p>Cultural Points</p>
+                                    <small class="stat-trend">+12 this week</small>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🛍️</div>
+                                <div class="stat-info">
+                                    <h3 id="buyerTotalOrders">12</h3>
+                                    <p>Cultural Treasures</p>
+                                    <small class="stat-trend">+3 this month</small>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">❤️</div>
+                                <div class="stat-info">
+                                    <h3 id="buyerWishlistCount">8</h3>
+                                    <p>Wishlist Items</p>
+                                    <small class="stat-trend">Recently added</small>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🏆</div>
+                                <div class="stat-info">
+                                    <h3 id="buyerLevel">Explorer</h3>
+                                    <p>Cultural Level</p>
+                                    <small class="stat-trend">Next: Connoisseur</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-sections">
+                            <div class="recommendations-section">
+                                <div class="section-header">
+                                    <h2>AI Recommendations for You</h2>
+                                    <button class="btn btn--outline" onclick="app.refreshRecommendations()">🤖 Get New Suggestions</button>
+                                </div>
+                                <div class="product-grid" id="buyerRecommendations"></div>
+                            </div>
+                            
+                            <div class="cultural-journey">
+                                <h3>Your Cultural Journey</h3>
+                                <div class="journey-timeline" id="culturalTimeline"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Products Page Enhanced -->
+                    <section id="productsPage" class="dashboard-section hidden">
+                        <div class="products-header">
+                            <div class="products-title">
+                                <h1>Cultural Treasures</h1>
+                                <p>Discover authentic crafts from master artisans worldwide</p>
+                            </div>
+                            
+                            <div class="products-controls">
+                                <div class="search-filters">
+                                    <input type="text" class="search-input" placeholder="Search by craft, culture, or artisan..." id="productSearch">
+                                    <select class="form-control" id="categoryFilter">
+                                        <option value="">All Categories</option>
+                                        <option value="textiles">Textiles & Fabrics</option>
+                                        <option value="pottery">Pottery & Ceramics</option>
+                                        <option value="jewelry">Jewelry & Accessories</option>
+                                        <option value="woodwork">Woodwork & Carving</option>
+                                        <option value="metalwork">Metalwork & Sculptures</option>
+                                    </select>
+                                    <select class="form-control" id="regionFilter">
+                                        <option value="">All Regions</option>
+                                        <option value="south-asia">South Asia</option>
+                                        <option value="west-africa">West Africa</option>
+                                        <option value="latin-america">Latin America</option>
+                                        <option value="middle-east">Middle East</option>
+                                        <option value="east-asia">East Asia</option>
+                                    </select>
+                                    <select class="form-control" id="priceFilter">
+                                        <option value="">All Prices</option>
+                                        <option value="0-50">Under $50</option>
+                                        <option value="50-100">$50 - $100</option>
+                                        <option value="100-250">$100 - $250</option>
+                                        <option value="250+">$250+</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="view-controls">
+                                    <button class="view-btn active" data-view="grid">⚏</button>
+                                    <button class="view-btn" data-view="list">☰</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="products-grid" id="productsGrid"></div>
+                        
+                        <div class="products-pagination">
+                            <button class="btn btn--outline" id="loadMore">Load More Treasures</button>
+                        </div>
+                    </section>
+
+                    <!-- Enhanced AI Sections -->
+                    <section id="aiShopperSection" class="dashboard-section hidden">
+                        <div class="ai-assistant-full">
+                            <div class="ai-header">
+                                <div class="ai-avatar-large">🤖</div>
+                                <div class="ai-intro">
+                                    <h1>Your AI Cultural Shopper</h1>
+                                    <p>I'm your personal guide to discovering authentic cultural treasures that match your interests and story</p>
+                                    <div class="ai-capabilities">
+                                        <span class="capability">🎨 Craft Recommendations</span>
+                                        <span class="capability">📚 Cultural Education</span>
+                                        <span class="capability">💰 Price Insights</span>
+                                        <span class="capability">🌍 Global Discovery</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-container enhanced">
+                                <div class="chat-messages" id="shopperChatMessages">
+                                    <div class="ai-message">
+                                        <div class="message-avatar">🤖</div>
+                                        <div class="message-content">
+                                            <p>Welcome! I'm your AI Cultural Shopper. I can help you discover authentic crafts that resonate with your cultural interests and personal style. What kind of cultural art speaks to your soul today?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="chat-input-area">
+                                    <input type="text" class="chat-input" id="shopperChatInput" placeholder="Tell me about the culture or craft you're interested in...">
+                                    <button class="btn btn--primary" id="shopperSendBtn">Send</button>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-suggestions">
+                                <h3>Popular Requests</h3>
+                                <div class="suggestions-grid">
+                                    <button class="suggestion-btn" data-suggestion="textile">🧵 Traditional Textiles</button>
+                                    <button class="suggestion-btn" data-suggestion="pottery">🏺 Handmade Pottery</button>
+                                    <button class="suggestion-btn" data-suggestion="jewelry">💎 Cultural Jewelry</button>
+                                    <button class="suggestion-btn" data-suggestion="woodwork">🪵 Wooden Crafts</button>
+                                    <button class="suggestion-btn" data-suggestion="contemporary">✨ Modern Adaptations</button>
+                                    <button class="suggestion-btn" data-suggestion="ceremonial">🏛️ Ceremonial Pieces</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Other dashboard sections would continue here... -->
+                    <!-- (All other existing sections with similar enhancements) -->
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Shopping Cart Enhanced -->
+        <div id="cartSidebar" class="cart-sidebar hidden">
+            <div class="cart-header">
+                <h3>Cultural Collection</h3>
+                <div class="cart-stats">
+                    <span id="cartItemCount">0 items</span>
+                </div>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            
+            <div class="cart-items" id="cartItems"></div>
+            
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Cultural Impact Fee:</span>
+                    <span id="impactFee">$0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                </div>
+            </div>
+            
+            <div class="cart-footer">
+                <button class="btn btn--primary btn--full-width" id="checkoutBtn">
+                    🔗 Secure Checkout with Blockchain
+                </button>
+                <p class="cart-note">All purchases include digital authenticity certificates</p>
+            </div>
+        </div>
+
+        <!-- Enhanced Cart Button -->
+        <button class="cart-button" id="cartButton">
+            <div class="cart-icon">🛒</div>
+            <span class="cart-count" id="cartCount">0</span>
+            <div class="cart-pulse"></div>
+        </button>
+
+        <!-- AI Assistant Floating Button -->
+        <button class="ai-assistant-button" id="aiAssistantBtn">
+            <div class="ai-icon">🤖</div>
+            <div class="ai-pulse"></div>
+        </button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="cultural-loader">
+            <div class="loader-pattern"></div>
+            <div class="loader-text">Connecting to cultural heritage...</div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

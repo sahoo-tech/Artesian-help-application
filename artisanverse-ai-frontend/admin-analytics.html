@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-icon">🏛️</span>
+                    <h2 class="logo-text">ArtisanVerse</h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="admin-home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="admin-analytics.html" class="active"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                    <li><a href="manage-users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                    <li><a href="manage-products.html"><i class="fas fa-box"></i> Manage Products</a></li>
+                    <li><a href="manage-orders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-main">
+            <div class="dashboard-header">
+                <h1>Analytics Hub</h1>
+                <p>Insights and statistics for the platform.</p>
+            </div>
+            <div class="analytics-grid">
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Total Revenue</h3>
+                        <p class="analytics-card__value">$45,231.89</p>
+                        <p class="analytics-card__change analytics-card__change--positive">+20.1% from last month</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">New Users</h3>
+                        <p class="analytics-card__value">1,204</p>
+                        <p class="analytics-card__change analytics-card__change--positive">+15.3% from last month</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Total Orders</h3>
+                        <p class="analytics-card__value">3,456</p>
+                        <p class="analytics-card__change analytics-card__change--negative">-2.8% from last month</p>
+                    </div>
+                </div>
+                <div class="card analytics-card">
+                    <div class="card__body">
+                        <h3 class="analytics-card__title">Conversion Rate</h3>
+                        <p class="analytics-card__value">3.14%</p>
+                        <p class="analytics-card__change analytics-card__change--positive">+0.5% from last month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card chart-card">
+                <div class="card__header">
+                    <h3>Sales Over Time</h3>
+                </div>
+                <div class="card__body">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__header">
+                    <h3>Top Selling Products</h3>
+                </div>
+                <div class="card__body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Orders</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Handcrafted Vase</td>
+                                <td>$45.00</td>
+                                <td>210</td>
+                                <td>$9,450.00</td>
+                            </tr>
+                            <tr>
+                                <td>Woven Wall Hanging</td>
+                                <td>$75.00</td>
+                                <td>150</td>
+                                <td>$11,250.00</td>
+                            </tr>
+                            <tr>
+                                <td>Ceramic Mug Set</td>
+                                <td>$35.00</td>
+                                <td>320</td>
+                                <td>$11,200.00</td>
+                            </tr>
+                            <tr>
+                                <td>Wooden Sculpture</td>
+                                <td>$120.00</td>
+                                <td>80</td>
+                                <td>$9,600.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [12000, 19000, 3000, 5000, 2000, 3000, 7000],
+                    backgroundColor: 'rgba(50, 184, 198, 0.2)',
+                    borderColor: 'rgba(50, 184, 198, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

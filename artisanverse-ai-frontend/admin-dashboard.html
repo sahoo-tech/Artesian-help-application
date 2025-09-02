@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="logo-icon">🏛️</span>
+                    <h2 class="logo-text">ArtisanVerse</h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="admin-home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="admin-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="manage-users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                    <li><a href="manage-products.html"><i class="fas fa-box"></i> Manage Products</a></li>
+                    <li><a href="manage-orders.html"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
+                    <li><a href="admin-analytics.html"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-main">
+            <div class="dashboard-welcome">
+                <h1>Admin Dashboard</h1>
+                <p>Welcome, Admin! Here you can manage the platform.</p>
+            </div>
+            <div class="dashboard-metrics">
+                <div class="card metric">
+                    <div class="card__body">
+                        <h2>Total Users</h2>
+                        <p>1,234</p>
+                    </div>
+                </div>
+                <div class="card metric">
+                    <div class="card__body">
+                        <h2>Total Artisans</h2>
+                        <p>567</p>
+                    </div>
+                </div>
+                <div class="card metric">
+                    <div class="card__body">
+                        <h2>Total Products</h2>
+                        <p>8,901</p>
+                    </div>
+                </div>
+                <div class="card metric">
+                    <div class="card__body">
+                        <h2>Total Orders</h2>
+                        <p>2,345</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card recent-activity">
+                <div class="card__header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="card__body">
+                    <ul>
+                        <li>New user registered: John Doe</li>
+                        <li>New product uploaded: Handcrafted Leather Wallet</li>
+                        <li>New order placed: #12345</li>
+                        <li>New review submitted for product: Wooden Bowl</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

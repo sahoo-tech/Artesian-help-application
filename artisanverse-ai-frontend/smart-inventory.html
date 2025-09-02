@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory - ArtisanVerse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-content">
+        <section id="smartInventorySection" class="dashboard-section">
+            <div class="products-header">
+                <div class="products-title">
+                    <h1>Smart Inventory</h1>
+                    <p>Manage your product stock and get AI-powered insights</p>
+                </div>
+            </div>
+            
+            <div class="inventory-upload-section">
+                <h2>Upload New Product (from Inventory)</h2>
+                <form id="smartInventoryUploadForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label">Product Title</label>
+                        <input type="text" class="form-control" id="inventoryProductTitle" placeholder="Enter product title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Product Description</label>
+                        <textarea class="form-control" id="inventoryProductDescription" placeholder="Describe your product" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price (USD)</label>
+                        <input type="number" class="form-control" id="inventoryProductPrice" placeholder="Enter price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-control" id="inventoryProductCategory" placeholder="Enter category (e.g., Textiles, Pottery)" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Initial Stock</label>
+                        <input type="number" class="form-control" id="inventoryProductStock" placeholder="Enter initial stock quantity" value="1" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Product Image</label>
+                        <input type="file" class="form-control" id="inventoryProductImage" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Upload Product to Inventory</button>
+                </form>
+            </div>
+
+            <hr style="margin: 40px 0; border-color: #eee;">
+
+            <div class="inventory-list-section">
+                <h2>Your Current Inventory</h2>
+                <div id="inventoryGrid" class="inventory-grid"></div>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
