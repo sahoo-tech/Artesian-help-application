@@ -3431,3 +3431,12 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-24);
 }
+
+/* Backend Connection Modal */
+#backendModal {
+    z-index: 10000;
+}
+
+#backendModal .modal-content {
+    max-width: 400px;
+}

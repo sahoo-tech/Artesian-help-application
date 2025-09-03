@@ -13,7 +13,7 @@ class ArtisanVerseApp {
         };
         this.notifications = [];
         
-        this.apiBaseUrl = 'http://localhost:5002/api';
+        this.apiBaseUrl = null;
         
         // Initialize app
         this.init();
@@ -21,19 +21,25 @@ class ArtisanVerseApp {
 
     async init() {
         console.log('🎨 Initializing ArtisanVerse - AI-Powered Cultural Heritage Marketplace...');
-        
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setupApp());
+
+        this.apiBaseUrl = this.getBackendUrl();
+
+        if (!this.apiBaseUrl) {
+            this.showBackendModal();
         } else {
-            await this.setupApp();
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => this.setupApp());
+            } else {
+                await this.setupApp();
+            }
         }
     }
 
     async setupApp() {
         try {
-            await this.initializeCulturalData();
             this.bindEvents();
+            await this.initializeCulturalData();
             this.checkAuthState();
             this.updateCartUI();
             this.startCulturalAnimations();
@@ -51,9 +57,9 @@ class ArtisanVerseApp {
     async initializeCulturalData() {
         try {
             const [artisansRes, productsRes, workshopsRes] = await Promise.all([
-                fetch(`${this.apiBaseUrl}/artisans`),
-                fetch(`${this.apiBaseUrl}/products`),
-                fetch(`${this.apiBaseUrl}/workshops`)
+                fetch(`${this.getBackendUrl()}/artisans`),
+                fetch(`${this.getBackendUrl()}/products`),
+                fetch(`${this.getBackendUrl()}/workshops`)
             ]);
 
             const artisans = await artisansRes.json();
@@ -90,6 +96,12 @@ class ArtisanVerseApp {
             
             // AI demo events
             this.bindAIDemoEvents();
+
+            // Backend modal event
+            const connectBackendBtn = document.getElementById('connectBackendBtn');
+            if (connectBackendBtn) {
+                connectBackendBtn.addEventListener('click', () => this.connectBackend());
+            }
             
             console.log('✅ All events bound successfully');
         } catch (error) {
@@ -375,7 +387,7 @@ class ArtisanVerseApp {
         this.showLoading(true);
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/auth/login`, {
+            const response = await fetch(`${this.getBackendUrl()}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -423,7 +435,7 @@ class ArtisanVerseApp {
         this.showLoading(true);
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/auth/register`, {
+            const response = await fetch(`${this.getBackendUrl()}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -458,7 +470,7 @@ class ArtisanVerseApp {
         this.showLoading(true);
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/auth/social-login`, {
+            const response = await fetch(`${this.getBackendUrl()}/auth/social-login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -527,6 +539,38 @@ class ArtisanVerseApp {
         
         this.navigateTo('home');
         this.showNotification('Logged out successfully. Thank you for visiting! 👋', 'info');
+    }
+
+    getBackendUrl() {
+        return localStorage.getItem('artisanverse_backend_url');
+    }
+
+    showBackendModal() {
+        const modal = document.getElementById('backendModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
+    }
+
+    hideBackendModal() {
+        const modal = document.getElementById('backendModal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+    }
+
+    async connectBackend() {
+        const backendUrlInput = document.getElementById('backendUrlInput');
+        const backendUrl = backendUrlInput.value.trim();
+
+        if (backendUrl) {
+            localStorage.setItem('artisanverse_backend_url', backendUrl);
+            this.apiBaseUrl = backendUrl;
+            this.hideBackendModal();
+            await this.setupApp();
+        } else {
+            this.showNotification('Please enter a valid backend URL', 'error');
+        }
     }
 
     // Navigation Methods
@@ -829,7 +873,7 @@ class ArtisanVerseApp {
         if (productsGrid) {
             this.showLoading(true);
             try {
-                const response = await fetch(`${this.apiBaseUrl}/products`);
+                const response = await fetch(`${this.getBackendUrl()}/products`);
                 const data = await response.json();
 
                 if (response.ok) {
@@ -978,7 +1022,7 @@ class ArtisanVerseApp {
                     </div>
                     
                     <div class="chat-input-area">
-                        <input type="text" class="chat-input" id="shopperChatInput" placeholder="Tell me about the culture or craft you\'re interested in...">
+                        <input type="text" class="chat-input" id="shopperChatInput" placeholder="Tell me about the culture or craft you're interested in...">
                         <button class="btn btn--primary" id="shopperSendBtn">Send</button>
                     </div>
                 </div>
@@ -1117,7 +1161,7 @@ class ArtisanVerseApp {
             const formData = new FormData();
             formData.append('productImages', imageFile);
 
-            const uploadResponse = await fetch(`${this.apiBaseUrl}/upload/product-images`, {
+            const uploadResponse = await fetch(`${this.getBackendUrl()}/upload/product-images`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('artisanverse_token')}`
@@ -1142,7 +1186,7 @@ class ArtisanVerseApp {
                 images: [imageUrl]
             };
 
-            const createResponse = await fetch(`${this.apiBaseUrl}/products`, {
+            const createResponse = await fetch(`${this.getBackendUrl()}/products`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1212,7 +1256,7 @@ class ArtisanVerseApp {
             const formData = new FormData();
             formData.append('productImages', imageFile);
 
-            const uploadResponse = await fetch(`${this.apiBaseUrl}/upload/product-images`, {
+            const uploadResponse = await fetch(`${this.getBackendUrl()}/upload/product-images`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('artisanverse_token')}`
@@ -1238,7 +1282,7 @@ class ArtisanVerseApp {
                 images: [imageUrl]
             };
 
-            const createResponse = await fetch(`${this.apiBaseUrl}/products`, {
+            const createResponse = await fetch(`${this.getBackendUrl()}/products`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1272,7 +1316,7 @@ class ArtisanVerseApp {
         inventoryGrid.innerHTML = '';
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/products/artisan/my-products`, {
+            const response = await fetch(`${this.getBackendUrl()}/products/artisan/my-products`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('artisanverse_token')}`
                 }
@@ -1326,7 +1370,7 @@ class ArtisanVerseApp {
     async updateStock(productId, newStock) {
         this.showLoading(true);
         try {
-            const response = await fetch(`${this.apiBaseUrl}/products/${productId}`, {
+            const response = await fetch(`${this.getBackendUrl()}/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

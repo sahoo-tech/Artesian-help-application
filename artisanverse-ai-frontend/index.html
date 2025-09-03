@@ -13,6 +13,18 @@
     <link rel="manifest" href="data:application/json,{"name":"ArtisanVerse","short_name":"ArtisanVerse","start_url":"/","display":"standalone","theme_color":"#D4A574"}">
 </head>
 <body>
+    <!-- Backend Connection Modal -->
+    <div id="backendModal" class="modal">
+        <div class="modal-content">
+            <h2>Connect to Backend</h2>
+            <p>Please enter the URL of the backend server.</p>
+            <div class="form-group">
+                <label class="form-label">Backend URL</label>
+                <input type="text" class="form-control" id="backendUrlInput" placeholder="https://example.com">
+            </div>
+            <button id="connectBackendBtn" class="btn btn--primary">Connect</button>
+        </div>
+    </div>
     <!-- Cultural Pattern Animations -->
     <div class="cultural-animations">
         <div class="floating-pattern pattern-1"></div>
@@ -262,9 +274,8 @@
                             <a href="#" onclick="app.showProfile()">👤 My Profile</a>
                             <a href="#" onclick="app.showSettings()">⚙️ Settings</a>
                             <a href="#" onclick="app.showOrders()">📦 My Orders</a>
-                            <hr>
-                            <a href="#" id="logoutBtn">🚪 Logout</a>
                         </div>
+                        <a href="#" id="logoutBtn" class="btn btn--outline">🚪 Logout</a>
                     </div>
                 </div>
             </div>
