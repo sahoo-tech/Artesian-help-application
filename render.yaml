@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: artisanverse-ai-backend
+    runtime: node
+    repo: https://github.com/sahoo-tech/Artesian-help-application
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: artisanverse-ai-backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
